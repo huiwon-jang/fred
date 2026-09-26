@@ -158,40 +158,6 @@
 </section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Key insight. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Key insight: a single denoising step is a future representation generator</h2>
-        <div class="column has-text-centered">
-          <img class="figure-img" src="./static/images/fig3_correlation.png" alt="Success rate versus one-step video quality, clean-feature probing, and one-step feature probing">
-          <p class="figure-caption">
-            Using <a href="https://arxiv.org/abs/2603.10448">DiT4DiT</a> as the base WAM on RoboCasa Kitchen, task success is only weakly correlated with
-            (a) one-step video generation quality ($r=0.24$) and (b) the quality of representations extracted from <i>observed</i> future videos ($r=0.49$),
-            but strongly correlated with (c) the quality of future representations <i>generated from noise</i> in one step ($r=0.89$).
-          </p>
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Recent WAMs achieve strong performance with a decoupled action decoder that conditions on intermediate features from a <b>single</b> video denoising step,
-            which removes the iterative denoising of a large video backbone and makes WAMs practical for real-time control.
-            Yet the underlying video diffusion models are never explicitly trained for one-step generation.
-            We argue that single-step inference works because the denoising objective <i>implicitly</i> teaches the video model to generate future representations:
-            it cannot render a high-fidelity video in one step, but its intermediate features already capture the high-level semantics that matter for control,
-            such as global robot motion and target object placement.
-            We therefore interpret the video diffusion model as a <span style="color: #d9480f;"><b>future representation generator</b></span>, $\mathbf{h} = \mathbf{f}_\theta(\boldsymbol{\epsilon} \mid \mathbf{o}_t, \mathbf{c})$,
-            and ask how to train it so that these representations become <i>explicitly</i> good for action generation.
-            The figure above supports this view: what predicts task success is not one-step video quality nor representation quality on observed frames,
-            but the quality of the future representations generated from noise, which is exactly the quantity the action decoder consumes.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Key insight. -->
-  </div>
-</section>
-
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -375,146 +341,34 @@
 </section>
 
 
+
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Analysis. -->
-    <div class="columns is-centered">
+    <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Analysis</h2>
-        <div class="content has-text-justified">
-          <p>
-            We ablate FRED on the <a href="https://robocasa.ai/">RoboCasa Kitchen</a> benchmark with DiT4DiT as the base WAM (Wan2.2-TI2V-5B, 100K iterations, batch size 64),
-            and compare it with recent representation learning methods for diffusion models on RoboCasa Kitchen, GR-1 Tabletop, and LIBERO.
+        <h3 class="title is-4">A single denoising step is a future representation generator</h3>
+        <div class="column has-text-centered">
+          <img class="figure-img" src="./static/images/fig3_correlation.png" alt="Success rate versus one-step video quality, clean-feature probing, and one-step feature probing">
+          <p class="figure-caption">
+            Using <a href="https://arxiv.org/abs/2603.10448">DiT4DiT</a> as the base WAM on RoboCasa Kitchen, task success is only weakly correlated with
+            (a) one-step video generation quality ($r=0.24$) and (b) the quality of representations extracted from <i>observed</i> future videos ($r=0.49$),
+            but strongly correlated with (c) the quality of future representations <i>generated from noise</i> in one step ($r=0.89$).
           </p>
         </div>
-        <div class="columns is-centered">
-          <div class="column is-two-fifths">
-            <p class="has-text-centered"><b>Component ablation</b></p>
-            <table class="table is-narrow is-hoverable results-table">
-              <thead><tr><th>Method</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr class="ours"><td>FRED (Ours)</td><td class="best">68.8</td></tr>
-                <tr><td>w/o self-distillation</td><td>65.1</td></tr>
-                <tr><td>w/o history</td><td>64.8</td></tr>
-                <tr class="sep"><td>Base WAM (DiT4DiT)</td><td>61.4</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column is-three-fifths">
-            <p class="has-text-centered"><b>Comparison with representation learning methods</b></p>
-            <div class="table-scroll">
-            <table class="table is-narrow is-hoverable results-table">
-              <thead><tr><th>Method</th><th>RoboCasa</th><th>GR-1 Tabletop</th><th>LIBERO</th></tr></thead>
-              <tbody>
-                <tr><td>DiT4DiT</td><td>61.4</td><td>50.4</td><td>97.4</td></tr>
-                <tr><td>w/ VideoREPA</td><td>64.3</td><td>51.6</td><td>97.3</td></tr>
-                <tr><td>w/ SRA</td><td>62.9</td><td>52.1</td><td>97.6</td></tr>
-                <tr><td>w/ Self-Flow</td><td>61.8</td><td>50.9</td><td>97.9</td></tr>
-                <tr class="ours"><td>w/ FRED (Ours)</td><td class="best">68.8</td><td class="best">54.8</td><td class="best">98.2</td></tr>
-              </tbody>
-            </table>
-            </div>
-          </div>
-        </div>
         <div class="content has-text-justified">
           <p>
-            Self-distillation and historical conditioning contribute complementary gains, and removing both returns to the base WAM.
-            Aligning to an external encoder (<a href="https://arxiv.org/abs/2505.23656">VideoREPA</a>), to lower-noise self features (<a href="https://arxiv.org/abs/2505.02831">SRA</a>),
-            or self-supervised flow matching (Self-Flow) yields inconsistent gains across benchmarks,
-            whereas explicitly learning the future representation used by the action decoder helps consistently.
-          </p>
-        </div>
-
-        <h3 class="title is-4">Design choices</h3>
-        <div class="columns is-centered has-text-centered">
-          <div class="column">
-            <p><b>Teacher noise $\tau$</b></p>
-            <table class="table is-narrow results-table" style="display:inline-table">
-              <thead><tr><th>$\tau$</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr><td>0.00</td><td>65.3</td></tr>
-                <tr class="ours"><td>0.25</td><td class="best">68.8</td></tr>
-                <tr><td>0.50</td><td>67.8</td></tr>
-                <tr><td>0.75</td><td>67.6</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column">
-            <p><b>Feature layer</b></p>
-            <table class="table is-narrow results-table" style="display:inline-table">
-              <thead><tr><th>Layer</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr><td>10</td><td>57.5</td></tr>
-                <tr><td>14</td><td>63.0</td></tr>
-                <tr class="ours"><td>18</td><td class="best">68.8</td></tr>
-                <tr><td>22</td><td>66.8</td></tr>
-                <tr><td>26</td><td>64.7</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column">
-            <p><b>Loss coefficient $\lambda_{\mathrm{SD}}$</b></p>
-            <table class="table is-narrow results-table" style="display:inline-table">
-              <thead><tr><th>$\lambda_{\mathrm{SD}}$</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr><td>0.1</td><td>68.1</td></tr>
-                <tr class="ours"><td>0.01</td><td class="best">68.8</td></tr>
-                <tr><td>0.001</td><td>62.7</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column">
-            <p><b>Stop-gradient from action loss</b></p>
-            <table class="table is-narrow results-table" style="display:inline-table">
-              <thead><tr><th>Stop-grad</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr><td>&#10007;</td><td>65.6</td></tr>
-                <tr class="ours"><td>&#10003;</td><td class="best">68.8</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            A moderately noisy teacher input ($\tau=0.25$) beats both clean futures and heavier corruption, consistent with diffusion representations being strongest at intermediate noise levels.
-            Performance peaks at layer 18, a light self-distillation coefficient suffices, and blocking the action gradient into the video backbone is better than optimizing the future representations directly for action prediction.
-          </p>
-        </div>
-
-        <div class="columns is-centered">
-          <div class="column is-two-fifths">
-            <p class="has-text-centered"><b>Generality across video backbones</b></p>
-            <table class="table is-narrow is-hoverable results-table">
-              <thead><tr><th>Method</th><th>SR (%)</th></tr></thead>
-              <tbody>
-                <tr><td>DiT4DiT (Wan2.2-5B)</td><td>61.4</td></tr>
-                <tr class="ours"><td>&nbsp;&nbsp;w/ FRED (Ours)</td><td class="best">68.8</td></tr>
-                <tr class="sep"><td>DiT4DiT (Cosmos-Predict2.5-2B)</td><td>56.7</td></tr>
-                <tr class="ours"><td>&nbsp;&nbsp;w/ FRED (Ours)</td><td class="best">62.1</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column is-three-fifths">
-            <p class="has-text-centered"><b>Inference cost</b> (Franka Research 3, NVIDIA A100 80GB)</p>
-            <div class="table-scroll">
-            <table class="table is-narrow is-hoverable results-table">
-              <thead><tr><th>Method</th><th>Model size</th><th># Frames</th><th>Time (s, &darr;)</th></tr></thead>
-              <tbody>
-                <tr><td>$\pi_{0.5}$</td><td>3B</td><td>1</td><td>0.261</td></tr>
-                <tr><td>GR00T N1.7</td><td>3B</td><td>1</td><td>0.121</td></tr>
-                <tr class="sep"><td>DiT4DiT</td><td>5B</td><td>1</td><td>0.111</td></tr>
-                <tr class="ours"><td>FRED (Ours)</td><td>5B</td><td>5</td><td>0.136</td></tr>
-                <tr class="sep"><td>DreamZero</td><td>14B</td><td>5</td><td>3.255</td></tr>
-                <tr class="ours"><td>FRED (Ours)</td><td>14B</td><td>5</td><td class="best">0.406</td></tr>
-              </tbody>
-            </table>
-            </div>
-          </div>
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            FRED's gains persist across different video backbones, and a single denoising step keeps its latency comparable to state-of-the-art VLAs
-            despite conditioning on 5 frames by default; at the 14B scale it is roughly 8&times; faster than DreamZero while achieving higher success rates.
+            Recent WAMs achieve strong performance with a decoupled action decoder that conditions on intermediate features from a <b>single</b> video denoising step,
+            which removes the iterative denoising of a large video backbone and makes WAMs practical for real-time control.
+            Yet the underlying video diffusion models are never explicitly trained for one-step generation.
+            We argue that single-step inference works because the denoising objective <i>implicitly</i> teaches the video model to generate future representations:
+            it cannot render a high-fidelity video in one step, but its intermediate features already capture the high-level semantics that matter for control,
+            such as global robot motion and target object placement.
+            We therefore interpret the video diffusion model as a <span style="color: #d9480f;"><b>future representation generator</b></span>, $\mathbf{h} = \mathbf{f}_\theta(\boldsymbol{\epsilon} \mid \mathbf{o}_t, \mathbf{c})$,
+            and ask how to train it so that these representations become <i>explicitly</i> good for action generation.
+            The figure above supports this view: what predicts task success is not one-step video quality nor representation quality on observed frames,
+            but the quality of the future representations generated from noise, which is exactly the quantity the action decoder consumes.
           </p>
         </div>
       </div>
