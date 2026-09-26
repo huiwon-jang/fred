@@ -40,8 +40,8 @@
     .results-table th { text-align: center; }
     .results-table td { text-align: center; }
     .results-table td:first-child, .results-table th:first-child { text-align: left; }
-    .results-table tr.ours td { font-weight: 700; background: #fff5ec; }
-    .results-table td.best { color: #d9480f; font-weight: 700; }
+    .results-table tr.ours td { font-weight: 700; }
+    .results-table td.best { font-weight: 700; }
     .results-table tr.sep td { border-top: 2px solid #b5b5b5; }
     .table-note { font-size: 0.85rem; color: #666; }
     .table-scroll { overflow-x: auto; }
@@ -67,8 +67,6 @@
     .video-slot .slot-sub { font-size: 0.8rem; }
     .video-slot .icon { font-size: 1.6rem; margin-bottom: 0.3rem; color: #aaa; }
     .link-block .button.is-soon { opacity: 0.55; cursor: default; }
-    .key-number { font-family: 'Google Sans', sans-serif; font-size: 1.9rem; font-weight: 700; color: #d9480f; line-height: 1.1; }
-    .key-label { font-size: 0.85rem; color: #666; }
   </style>
 </head>
 <body>
@@ -130,24 +128,6 @@
       <h2 class="subtitle has-text-centered">
         <b>TL; DR.</b> We introduce FRED (<b>F</b>uture <b>RE</b>presentation learning via self-<b>D</b>istillation), a simple framework that trains World Action Models to generate better future video representations from a <i>single</i> denoising step, by self-distilling from a momentum teacher that sees noisy ground-truth futures and by conditioning on observation history.
       </h2>
-      <div class="columns is-centered is-mobile is-multiline has-text-centered">
-        <div class="column is-3-tablet is-6-mobile">
-          <div class="key-number">61.7 &rarr; 81.7%</div>
-          <div class="key-label">long-horizon task progress<br>zero-shot, Wan2.1-14B</div>
-        </div>
-        <div class="column is-3-tablet is-6-mobile">
-          <div class="key-number">10.4 &rarr; 52.1%</div>
-          <div class="key-label">out-of-domain task success<br>zero-shot, Wan2.1-14B</div>
-        </div>
-        <div class="column is-3-tablet is-6-mobile">
-          <div class="key-number">19.4 &rarr; 50.0%</div>
-          <div class="key-label">human-to-robot skill transfer<br>tasks seen only in human videos</div>
-        </div>
-        <div class="column is-3-tablet is-6-mobile">
-          <div class="key-number">r = 0.89</div>
-          <div class="key-label">one-step future representation<br>quality vs. task success</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
