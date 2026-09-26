@@ -178,8 +178,8 @@
           <p>
             FRED keeps the decoupled WAM architecture: a large video diffusion model $\mathbf{v}_\theta$ whose first layers $\mathbf{f}_\theta$ output the intermediate representation $\mathbf{h}$,
             and a small diffusion-based action decoder $\pi_\psi$ conditioned on $\mathbf{h}$ and the proprioceptive state.
-            Inference is one forward pass of the video model from pure Gaussian noise $\boldsymbol{\epsilon}$, with no iterative denoising and no decoded video.
-            On top of this, FRED adds two ingredients.
+            At inference time, the video model takes Gaussian noise $\boldsymbol{\epsilon}$ as input and runs a single denoising step; the action decoder then predicts actions from the resulting intermediate representation, without generating a video.
+            FRED trains this architecture with two additional components.
           </p>
           <p>
             <span style="color: #d9480f;"><b>Self-distillation from noisy futures.</b></span>
