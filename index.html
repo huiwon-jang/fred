@@ -256,15 +256,7 @@
         </div>
 
         <!-- Zero-shot. -->
-        <h3 class="title is-4">Zero-shot environment generalization (DROID &rarr; new environment)</h3>
-        <div class="content has-text-justified">
-          <p>
-            We evaluate four task suites with 12 trials each: in-domain easy tasks, an in-domain long-horizon task, out-of-domain tasks whose action verbs are absent from DROID, and object-grounding tasks with distractors of similar color or shape.
-            FRED outperforms all one-step WAM baselines at the 5B scale, and at the 14B scale it outperforms
-            <a href="https://arxiv.org/abs/2602.15922">DreamZero</a> (a multi-step video-generating WAM on the same backbone) as well as the VLAs $\pi_{0.5}$ and GR00T N1.7,
-            with the largest margins on long-horizon and out-of-domain tasks.
-          </p>
-        </div>
+        <h3 class="title is-4 has-text-centered">Zero-shot Environment Generalization Results (DROID)</h3>
         <div class="table-scroll">
         <table class="table is-narrow is-hoverable results-table">
           <thead>
@@ -318,15 +310,7 @@
         </div>
         <!--/ Zero-shot. -->
         <!-- Co-training. -->
-        <h3 class="title is-4">Human-robot co-training (OpenArm humanoid)</h3>
-        <div class="content has-text-justified">
-          <p>
-            Because video and action are separate modules, a WAM can be trained on human videos through the video objective alone, without action labels.
-            We collect 553 robot demonstrations and 1,187 egocentric human videos on the OpenArm humanoid, and compare policies trained on robot data alone with those co-trained on robot and human data.
-            FRED gives the best in-domain performance in both settings, and is the only WAM that reliably transfers skills demonstrated only in human videos:
-            50.0% task success and 97.2% instruction following, compared with 19.4% and 55.6% for the best competing WAM.
-          </p>
-        </div>
+        <h3 class="title is-4 has-text-centered">Human-robot Co-training Results (OpenArm humanoid)</h3>
         <div class="columns is-centered">
           <div class="column is-half">
             <p class="has-text-centered"><b>(a) In-domain robot tasks</b></p>
