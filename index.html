@@ -37,9 +37,8 @@
     /* result tables */
     .results-table { margin: 0 auto 0.5rem auto; font-size: 0.92rem; }
     .results-table th, .results-table td { vertical-align: middle; white-space: nowrap; }
-    .results-table th { text-align: center; }
-    .results-table td { text-align: center; }
-    .results-table td:first-child, .results-table th:first-child { text-align: left; }
+    .results-table th:not([align]), .results-table td:not([align]) { text-align: center; }
+    .results-table td:first-child:not([align]), .results-table th:first-child:not([align]) { text-align: left; }
     .results-table tr.ours td { font-weight: 700; }
     .results-table td.best { font-weight: 700; }
     .results-table tr.sep td { border-top: 2px solid #b5b5b5; }
@@ -196,11 +195,6 @@
             $\mathcal{L}_{\text{video}}(\theta) = \mathcal{L}_{\mathrm{FM}}(\theta) + \lambda_{\mathrm{SD}}\,\mathcal{L}_{\mathrm{SD}}(\theta)
              \quad \text{and} \quad
              \mathcal{L}_{\text{action}}(\psi) = \mathcal{L}_{\mathrm{FM}}(\psi)$
-          </p>
-          <p>
-            No external encoder is required: the teacher is the video model's own momentum copy, and the targets come from the robot data itself.
-            By default we extract features from layer 18 of Wan2.2-TI2V-5B (layer 23 of Wan2.1-I2V-14B) for both self-distillation and action conditioning,
-            use $\tau = 0.25$ and $\lambda_{\mathrm{SD}} = 0.01$, and condition on four historical observations.
           </p>
         </div>
       </div>
