@@ -54,9 +54,14 @@
     .hw-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
     .hw-col .figure-caption { margin-top: 0.75rem; }
     @media screen and (max-width: 768px) { .hw-img { height: auto; } }
+    /* rollout videos */
+    .video-card { text-align: center; }
+    .video-card video { width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; background: #000; display: block; }
+    .video-title { font-weight: 700; color: #444; font-size: 0.9rem; margin-top: 0.35rem; }
+    .video-sub { font-size: 0.8rem; color: #777; }
     /* empty video slots */
     .video-slot {
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 9;
       border: 2px dashed #c9c9c9;
       border-radius: 10px;
       background: #fafafa;
@@ -329,11 +334,11 @@
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts</b></p>
         <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Banana</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Air Fryer</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Apple/Mango</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open Air Fryer and Place Apple</span><span class="slot-sub">In-domain composite</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Place Bottle on Basket</span><span class="slot-sub">Human skill transfer</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_banana_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Banana</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_close_air_fryer_ours.mp4" type="video/mp4"></video><div class="video-title">Open/Close Air Fryer</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_apple_mango_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Apple/Mango</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_air_fryer_and_place_apple_ours.mp4" type="video/mp4"></video><div class="video-title">Open Air Fryer and Place Apple</div><div class="video-sub">In-domain composite</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_ours.mp4" type="video/mp4"></video><div class="video-title">Place Bottle on Basket</div><div class="video-sub">Human skill transfer</div></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Novel Objects</span><span class="slot-sub">Human skill transfer</span></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Pour Coffee</span><span class="slot-sub">Human skill transfer</span></div></div>
         </div>
