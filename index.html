@@ -47,7 +47,7 @@
     .table-scroll { overflow-x: auto; }
     /* figures */
     .figure-img { max-width: 100%; height: auto; }
-    .figure-caption { font-size: 0.9rem; color: #555; margin-top: 0.5rem; }
+    .figure-caption { font-size: 0.9rem; color: #555; margin-top: 0.5rem; margin-bottom: 1rem; }
     /* hardware setup: equal-height image boxes, captions aligned */
     .hw-col { display: flex; flex-direction: column; align-items: center; text-align: center; }
     .hw-img { width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; }
@@ -229,6 +229,12 @@
             with the largest margins on long-horizon and out-of-domain tasks.
           </p>
         </div>
+        <div class="column has-text-centered">
+          <img class="figure-img" src="./static/images/fig5_droid_tasks.png" alt="DROID evaluation tasks">
+          <p class="figure-caption">
+            DROID evaluation tasks: (a) in-domain easy, (b) in-domain long-horizon, (c) out-of-domain, and (d) object grounding.
+          </p>
+        </div>
         <div class="table-scroll">
         <table class="table is-narrow is-hoverable results-table">
           <thead>
@@ -247,12 +253,18 @@
         </table>
         </div>
         <p class="table-note has-text-centered">Average task progress rate (%) for the long-horizon task and average success rate (%) otherwise. All policies are trained on DROID only.</p>
-        <div class="column has-text-centered">
-          <img class="figure-img" src="./static/images/fig5_droid_tasks.png" alt="DROID evaluation tasks">
-          <p class="figure-caption">
-            DROID evaluation tasks: (a) in-domain easy, (b) in-domain long-horizon, (c) out-of-domain, and (d) object grounding.
-          </p>
+        <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts</b></p>
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Banana</span><span class="slot-sub">In-domain easy</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Microwave</span><span class="slot-sub">In-domain easy</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cube</span><span class="slot-sub">In-domain easy</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Clear Table</span><span class="slot-sub">In-domain long-horizon</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Reveal</span><span class="slot-sub">Out-of-domain</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Stamp</span><span class="slot-sub">Out-of-domain</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cup</span><span class="slot-sub">Object grounding</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cutlery</span><span class="slot-sub">Object grounding</span></div></div>
         </div>
+        <p class="table-note has-text-centered">Rollout videos will be added here.</p>
         <!--/ Zero-shot. -->
 
         <!-- Co-training. -->
@@ -263,6 +275,12 @@
             We collect 553 robot demonstrations and 1,187 egocentric human videos on the OpenArm humanoid, and compare policies trained on robot data alone with those co-trained on robot and human data.
             FRED gives the best in-domain performance in both settings, and is the only WAM that reliably transfers skills demonstrated only in human videos:
             50.0% task success and 97.2% instruction following, compared with 19.4% and 55.6% for the best competing WAM.
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img class="figure-img" src="./static/images/fig9_openarm_tasks.png" alt="OpenArm evaluation tasks">
+          <p class="figure-caption">
+            OpenArm evaluation tasks: (a) in-domain atomic, (b) in-domain composite (an unseen combination of two trained skills), and (c) human skill transfer (never demonstrated by the robot).
           </p>
         </div>
         <div class="columns is-centered">
@@ -309,12 +327,17 @@
             <p class="table-note has-text-centered">Tasks demonstrated only in human videos; without human data every model is at ~0.</p>
           </div>
         </div>
-        <div class="column has-text-centered">
-          <img class="figure-img" src="./static/images/fig9_openarm_tasks.png" alt="OpenArm evaluation tasks">
-          <p class="figure-caption">
-            OpenArm evaluation tasks: (a) in-domain atomic, (b) in-domain composite (an unseen combination of two trained skills), and (c) human skill transfer (never demonstrated by the robot).
-          </p>
+        <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts</b></p>
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Banana</span><span class="slot-sub">In-domain atomic</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Air Fryer</span><span class="slot-sub">In-domain atomic</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Apple/Mango</span><span class="slot-sub">In-domain atomic</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open Air Fryer and Place Apple</span><span class="slot-sub">In-domain composite</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Place Bottle on Basket</span><span class="slot-sub">Human skill transfer</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Novel Objects</span><span class="slot-sub">Human skill transfer</span></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Pour Coffee</span><span class="slot-sub">Human skill transfer</span></div></div>
         </div>
+        <p class="table-note has-text-centered">Rollout videos will be added here.</p>
         <!--/ Co-training. -->
       </div>
     </div>
@@ -360,43 +383,6 @@
 </section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Videos. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Real-robot rollouts</h2>
-        <div class="content has-text-centered">
-          <p>Rollout videos will be added here.</p>
-        </div>
-
-        <h3 class="title is-4">Zero-shot environment generalization (Franka Research 3)</h3>
-        <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Banana</span><span class="slot-sub">In-domain easy</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Microwave</span><span class="slot-sub">In-domain easy</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cube</span><span class="slot-sub">In-domain easy</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Clear Table</span><span class="slot-sub">In-domain long-horizon</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Reveal</span><span class="slot-sub">Out-of-domain</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Stamp</span><span class="slot-sub">Out-of-domain</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cup</span><span class="slot-sub">Object grounding</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Cutlery</span><span class="slot-sub">Object grounding</span></div></div>
-        </div>
-
-        <h3 class="title is-4">Human-robot co-training (OpenArm)</h3>
-        <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Banana</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Air Fryer</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Apple/Mango</span><span class="slot-sub">In-domain atomic</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open Air Fryer and Place Apple</span><span class="slot-sub">In-domain composite</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Place Bottle on Basket</span><span class="slot-sub">Human skill transfer</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Novel Objects</span><span class="slot-sub">Human skill transfer</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Pour Coffee</span><span class="slot-sub">Human skill transfer</span></div></div>
-        </div>
-      </div>
-    </div>
-    <!--/ Videos. -->
-  </div>
-</section>
 
 
 <section class="section">
