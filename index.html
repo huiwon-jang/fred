@@ -59,6 +59,8 @@
     .video-card video { width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; background: #000; display: block; }
     .video-title { font-weight: 700; color: #444; font-size: 0.9rem; margin-top: 0.35rem; }
     .video-sub { font-size: 0.8rem; color: #777; }
+    .h2r-arrow { color: #888; font-size: 1.1rem; margin: 0.15rem 0; }
+    .video-card .video-sub + video, .video-card .video-sub + .video-slot { margin-top: 0.25rem; }
     /* empty video slots */
     .video-slot {
       aspect-ratio: 16 / 9;
@@ -317,17 +319,41 @@
             </div>
           </div>
         </div>
-        <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts</b></p>
+        <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (a) in-domain robot tasks</b></p>
         <div class="columns is-multiline is-mobile">
           <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_banana_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Banana</div><div class="video-sub">In-domain atomic</div></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_close_air_fryer_ours.mp4" type="video/mp4"></video><div class="video-title">Open/Close Air Fryer</div><div class="video-sub">In-domain atomic</div></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_apple_mango_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Apple/Mango</div><div class="video-sub">In-domain atomic</div></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_air_fryer_and_place_apple_ours.mp4" type="video/mp4"></video><div class="video-title">Open Air Fryer and Place Apple</div><div class="video-sub">In-domain composite</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_ours.mp4" type="video/mp4"></video><div class="video-title">Place Bottle on Basket</div><div class="video-sub">Human skill transfer</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">PnP Novel Objects</span><span class="slot-sub">Human skill transfer</span></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Pour Coffee</span><span class="slot-sub">Human skill transfer</span></div></div>
         </div>
-        <p class="table-note has-text-centered">Rollout videos will be added here.</p>
+        <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (b) human skill transfer</b></p>
+        <p class="table-note has-text-centered">Each task is demonstrated only in human videos during training; the robot never performs it in the training data.</p>
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-4-tablet is-12-mobile"><div class="video-card">
+            <div class="video-title">Place Bottle on Basket</div>
+            <div class="video-sub">Human demonstration</div>
+            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_human.mp4" type="video/mp4"></video>
+            <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="video-sub">FRED rollout</div>
+            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_ours.mp4" type="video/mp4"></video>
+          </div></div>
+          <div class="column is-4-tablet is-12-mobile"><div class="video-card">
+            <div class="video-title">PnP Novel Objects</div>
+            <div class="video-sub">Human demonstration</div>
+            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_novel_objects_human.mp4" type="video/mp4"></video>
+            <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="video-sub">FRED rollout</div>
+            <div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Robot rollout</span><span class="slot-sub">coming soon</span></div>
+          </div></div>
+          <div class="column is-4-tablet is-12-mobile"><div class="video-card">
+            <div class="video-title">Pour Coffee</div>
+            <div class="video-sub">Human demonstration</div>
+            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pour_coffee_human.mp4" type="video/mp4"></video>
+            <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="video-sub">FRED rollout</div>
+            <div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Robot rollout</span><span class="slot-sub">coming soon</span></div>
+          </div></div>
+        </div>
         <!--/ Co-training. -->
       </div>
     </div>
