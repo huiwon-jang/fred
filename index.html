@@ -54,6 +54,11 @@
     .hw-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
     .hw-col .figure-caption { margin-top: 0.75rem; }
     @media screen and (max-width: 768px) { .hw-img { height: auto; } }
+    [hidden] { display: none !important; }
+    /* benchmark tabs */
+    .bench-tabs { margin-top: 1rem; margin-bottom: 1.5rem; }
+    .bench-tabs a { font-family: 'Google Sans', sans-serif; }
+    .bench-tabs li.is-active a { background-color: #363636; border-color: #363636; color: #fff; }
     /* rollout videos */
     .video-card { text-align: center; }
     .video-card video { width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; background: #000; display: block; }
@@ -83,6 +88,28 @@
     .video-slot .slot-sub { font-size: 0.8rem; }
     .video-slot .icon { font-size: 1.6rem; margin-bottom: 0.3rem; color: #aaa; }
   </style>
+  <script>
+    // Tabs + lazy video playback: a video loads and plays only while visible.
+    $(function () {
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { if (v.paused) { v.play().catch(function(){}); } }
+          else if (!v.paused) { v.pause(); }
+        });
+      }, { threshold: 0.25 }) : null;
+      document.querySelectorAll('video').forEach(function (v) { if (io) io.observe(v); });
+      $('.bench-tabs li').on('click', function () {
+        var tab = $(this).data('tab');
+        $('.bench-tabs li').removeClass('is-active'); $(this).addClass('is-active');
+        $('.tab-panel').each(function () {
+          var show = this.id === 'tab-' + tab; this.hidden = !show;
+          if (!show) { this.querySelectorAll('video').forEach(function (v) { v.pause(); }); }
+        });
+        if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise(); }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -229,6 +256,13 @@
           </p>
         </div>
 
+        <div class="tabs is-toggle is-centered is-medium bench-tabs">
+          <ul>
+            <li class="is-active" data-tab="droid"><a><span>Zero-shot generalization (DROID)</span></a></li>
+            <li data-tab="openarm"><a><span>Human-robot co-training (OpenArm)</span></a></li>
+          </ul>
+        </div>
+        <div class="tab-panel" id="tab-droid">
         <!-- Zero-shot. -->
         <h3 class="title is-4">Zero-shot environment generalization (DROID &rarr; new environment)</h3>
         <div class="content has-text-justified">
@@ -259,14 +293,13 @@
         <p class="table-note has-text-centered" style="margin-top:1.25rem">All rollout videos below are played at real-time speed (1&times;).</p>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (a) in-domain easy</b></p>
         <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_banana_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Banana</div><div class="video-sub"></div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cube_1_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cube</div><div class="video-sub">Trial 1</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cube_2_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cube</div><div class="video-sub">Trial 2</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video controls muted loop playsinline preload="none"><source src="./static/videos/droid/pnp_banana_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Banana</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video controls muted loop playsinline preload="none"><source src="./static/videos/droid/pnp_cube_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cube</div></div></div>
           <div class="column is-3-tablet is-6-mobile"><div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Open/Close Microwave</span><span class="slot-sub">coming soon</span></div></div>
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (b) in-domain long-horizon</b></p>
         <div class="columns is-multiline is-mobile is-centered">
-          <div class="column is-6-tablet is-12-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/clear_table_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">Clear Table</div><div class="video-sub">Uncut, 85 s</div></div></div>
+          <div class="column is-6-tablet is-12-mobile"><div class="video-card"><div class="video-wrap"><video controls muted loop playsinline preload="none"><source src="./static/videos/droid/clear_table_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">Clear Table</div><div class="video-sub">Uncut, 85 s</div></div></div>
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (c) out-of-domain</b></p>
         <div class="columns is-multiline is-mobile">
@@ -275,15 +308,12 @@
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (d) object grounding</b></p>
         <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cup_1_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cup</div><div class="video-sub">Trial 1</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cup_2_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cup</div><div class="video-sub">Trial 2</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cup_3_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cup</div><div class="video-sub">Trial 3</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cutlery_1_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cutlery</div><div class="video-sub">Trial 1</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cutlery_2_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cutlery</div><div class="video-sub">Trial 2</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/droid/pnp_cutlery_3_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cutlery</div><div class="video-sub">Trial 3</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video controls muted loop playsinline preload="none"><source src="./static/videos/droid/pnp_cup_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cup</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><div class="video-wrap"><video controls muted loop playsinline preload="none"><source src="./static/videos/droid/pnp_cutlery_ours.mp4" type="video/mp4"></video><span class="speed-badge">1&times;</span></div><div class="video-title">PnP Cutlery</div></div></div>
         </div>
         <!--/ Zero-shot. -->
-
+        </div>
+        <div class="tab-panel" id="tab-openarm" hidden>
         <!-- Co-training. -->
         <h3 class="title is-4">Human-robot co-training (OpenArm humanoid)</h3>
         <div class="content has-text-justified">
@@ -338,10 +368,10 @@
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (a) in-domain robot tasks</b></p>
         <div class="columns is-multiline is-mobile">
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_banana_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Banana</div><div class="video-sub">In-domain atomic</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_close_air_fryer_ours.mp4" type="video/mp4"></video><div class="video-title">Open/Close Air Fryer</div><div class="video-sub">In-domain atomic</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_apple_mango_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Apple/Mango</div><div class="video-sub">In-domain atomic</div></div></div>
-          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/open_air_fryer_and_place_apple_ours.mp4" type="video/mp4"></video><div class="video-title">Open Air Fryer and Place Apple</div><div class="video-sub">In-domain composite</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/pnp_banana_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Banana</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/open_close_air_fryer_ours.mp4" type="video/mp4"></video><div class="video-title">Open/Close Air Fryer</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/pnp_apple_mango_ours.mp4" type="video/mp4"></video><div class="video-title">PnP Apple/Mango</div><div class="video-sub">In-domain atomic</div></div></div>
+          <div class="column is-3-tablet is-6-mobile"><div class="video-card"><video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/open_air_fryer_and_place_apple_ours.mp4" type="video/mp4"></video><div class="video-title">Open Air Fryer and Place Apple</div><div class="video-sub">In-domain composite</div></div></div>
         </div>
         <p class="has-text-centered" style="margin-top:1.25rem"><b>Real-robot rollouts: (b) human skill transfer</b></p>
         <p class="table-note has-text-centered">Each task is demonstrated only in human videos during training; the robot never performs it in the training data.</p>
@@ -349,15 +379,15 @@
           <div class="column is-4-tablet is-12-mobile"><div class="video-card">
             <div class="video-title">Place Bottle on Basket</div>
             <div class="video-sub">Human demonstration</div>
-            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_human.mp4" type="video/mp4"></video>
+            <video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/place_bottle_on_basket_human.mp4" type="video/mp4"></video>
             <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
             <div class="video-sub">FRED rollout</div>
-            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/place_bottle_on_basket_ours.mp4" type="video/mp4"></video>
+            <video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/place_bottle_on_basket_ours.mp4" type="video/mp4"></video>
           </div></div>
           <div class="column is-4-tablet is-12-mobile"><div class="video-card">
             <div class="video-title">PnP Novel Objects</div>
             <div class="video-sub">Human demonstration</div>
-            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pnp_novel_objects_human.mp4" type="video/mp4"></video>
+            <video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/pnp_novel_objects_human.mp4" type="video/mp4"></video>
             <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
             <div class="video-sub">FRED rollout</div>
             <div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Robot rollout</span><span class="slot-sub">coming soon</span></div>
@@ -365,13 +395,14 @@
           <div class="column is-4-tablet is-12-mobile"><div class="video-card">
             <div class="video-title">Pour Coffee</div>
             <div class="video-sub">Human demonstration</div>
-            <video autoplay controls muted loop playsinline preload="metadata"><source src="./static/videos/openarm/pour_coffee_human.mp4" type="video/mp4"></video>
+            <video controls muted loop playsinline preload="none"><source src="./static/videos/openarm/pour_coffee_human.mp4" type="video/mp4"></video>
             <div class="h2r-arrow"><i class="fas fa-arrow-down"></i></div>
             <div class="video-sub">FRED rollout</div>
             <div class="video-slot"><span class="icon"><i class="fas fa-video"></i></span><span class="slot-title">Robot rollout</span><span class="slot-sub">coming soon</span></div>
           </div></div>
         </div>
         <!--/ Co-training. -->
+        </div>
       </div>
     </div>
     <!--/ Real-world experiments. -->
