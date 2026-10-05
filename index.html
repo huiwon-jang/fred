@@ -34,6 +34,10 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
+    /* TL;DR callout (MoSS style, light Google blue) */
+    .tldr { margin-top: 1.5rem; padding: 1rem 1.5rem; border-left: 4px solid #7BAAF7; background: #EEF4FE; border-radius: 4px; text-align: left; font-size: 1.05rem; line-height: 1.5; }
+    .tldr p { margin: 0; }
+    .tldr strong { color: #4285F4; }
     /* result tables */
     .results-table { margin: 0 auto 0.5rem auto; font-size: 0.92rem; }
     .results-table th, .results-table td { vertical-align: middle; white-space: nowrap; }
@@ -183,21 +187,18 @@
               </span>
             </div>
           </div>
+
+          <div class="tldr">
+            <p>
+              <strong>TL;DR:</strong> We introduce FRED, a framework that trains World Action Models to generate better future video representations from a single denoising step, by self-distilling from a momentum teacher that processes noisy ground-truth futures and by conditioning on observation history.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <h2 class="subtitle has-text-centered">
-        <b>TL; DR.</b> We introduce FRED, a framework that trains World Action Models to generate better future video representations from a single denoising step, by self-distilling from a momentum teacher that processes noisy ground-truth futures and by conditioning on observation history.
-      </h2>
-    </div>
-  </div>
-</section>
 
 
 <section class="section">
