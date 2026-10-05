@@ -477,14 +477,16 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            Recent WAMs achieve strong performance with a decoupled action decoder that conditions on intermediate features from a <b>single</b> video denoising step,
-            which removes the iterative denoising of a large video backbone and makes WAMs practical for real-time control.
-            Yet the underlying video diffusion models are never explicitly trained for one-step generation.
-            We argue that single-step inference works because the denoising objective <i>implicitly</i> teaches the video model to generate future representations:
-            it cannot render a high-fidelity video in one step, but its intermediate features already capture the high-level semantics that matter for control,
-            such as global robot motion and target object placement.
-            We therefore interpret the video diffusion model as a <span style="color: #EA4335;"><b>future representation generator</b></span>, $\mathbf{h} = \mathbf{f}_\theta(\boldsymbol{\epsilon} \mid \mathbf{o}_t, \mathbf{c})$,
-            and ask how to train it so that these representations become <i>explicitly</i> good for action generation.
+            Recent WAMs achieve competitive performance with a separate action decoder that generates actions conditioned on intermediate hidden states of the video diffusion model,
+            obtained from a single forward pass with Gaussian noise $\boldsymbol{\epsilon}$ as input.
+            This design avoids iterative denoising with large video backbones, but it also means that policy performance depends on how accurately these hidden states capture future robot-object dynamics.
+            We therefore interpret the hidden states as future representations and the video diffusion model as a <span style="color: #EA4335;"><b>future representation generator</b></span>,
+            $\mathbf{h} = \mathbf{f}_\theta(\boldsymbol{\epsilon} \mid \mathbf{o}_t, \mathbf{c})$.
+            The generated representation captures the semantics of plausible futures, yet it may still lack details needed for control (e.g., target object location or end-effector pose),
+            since the generator must infer them from the current observation alone.
+          </p>
+          <p>
+            Is the quality of this generated future representation what matters for control?
             In Figures (a) and (b), task success is only weakly correlated with one-step video generation quality ($r=0.24$) and representation quality on observed future videos ($r=0.49$).
             In contrast, in Figure (c), the quality of future representations generated from noise shows a stronger correlation with task success ($r=0.89$).
             This supports our view of the video diffusion model as a future representation generator and suggests that improving the representations directly used for
